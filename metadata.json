@@ -1,0 +1,6 @@
+{
+  "name": "FlashCraft",
+  "description": "A spaced-repetition flashcards app with custom media uploads and AI-powered file content extraction.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

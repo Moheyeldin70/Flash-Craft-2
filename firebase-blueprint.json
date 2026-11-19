@@ -1,0 +1,238 @@
+{
+  "entities": {
+    "Deck": {
+      "title": "Deck",
+      "description": "A user-owned flashcard deck containing metadata and card count.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID."
+        },
+        "title": {
+          "type": "string",
+          "description": "Deck title (1-100 characters)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional deck summary (0-300 characters)."
+        },
+        "colorHex": {
+          "type": "string",
+          "description": "Accent hex color for the deck card."
+        },
+        "iconName": {
+          "type": "string",
+          "description": "Material icon identifier for the deck."
+        },
+        "cardCount": {
+          "type": "integer",
+          "description": "Cached count of cards in the deck."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when deck was created (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when deck was last modified (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "title",
+        "description",
+        "colorHex",
+        "iconName",
+        "cardCount",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Flashcard": {
+      "title": "Flashcard",
+      "description": "A spaced-repetition flashcard with optional custom front/back media and SRS state.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID."
+        },
+        "deckId": {
+          "type": "string",
+          "description": "Parent Deck document ID."
+        },
+        "front": {
+          "type": "string",
+          "description": "Prompt/question text on the front of the card."
+        },
+        "back": {
+          "type": "string",
+          "description": "Answer/explanation text on the back of the card."
+        },
+        "hint": {
+          "type": "string",
+          "description": "Optional study hint."
+        },
+        "tags": {
+          "type": "array",
+          "description": "Up to 10 short topic tags."
+        },
+        "frontMediaUri": {
+          "type": "string",
+          "description": "Local file URI for custom media attached to the card front."
+        },
+        "frontMediaType": {
+          "type": "string",
+          "enum": ["NONE", "IMAGE", "AUDIO"],
+          "description": "Type of media attached to card front."
+        },
+        "frontMediaName": {
+          "type": "string",
+          "description": "Display filename for front media."
+        },
+        "backMediaUri": {
+          "type": "string",
+          "description": "Local file URI for custom media attached to the card back."
+        },
+        "backMediaType": {
+          "type": "string",
+          "enum": ["NONE", "IMAGE", "AUDIO"],
+          "description": "Type of media attached to card back."
+        },
+        "backMediaName": {
+          "type": "string",
+          "description": "Display filename for back media."
+        },
+        "repetitions": {
+          "type": "integer",
+          "description": "Consecutive successful repetitions."
+        },
+        "intervalDays": {
+          "type": "number",
+          "description": "Current review interval in days."
+        },
+        "easeFactor": {
+          "type": "number",
+          "description": "SM-2 ease factor (1.30 to 5.00)."
+        },
+        "stability": {
+          "type": "number",
+          "description": "FSRS-inspired memory stability in days."
+        },
+        "difficulty": {
+          "type": "number",
+          "description": "FSRS-inspired card difficulty (1.0 to 10.0)."
+        },
+        "leitnerBox": {
+          "type": "integer",
+          "description": "Leitner box index (1 to 5)."
+        },
+        "dueAtMillis": {
+          "type": "integer",
+          "description": "Epoch milliseconds when card is next due for review."
+        },
+        "lastReviewedMillis": {
+          "type": "integer",
+          "description": "Epoch milliseconds of the last review."
+        },
+        "lapses": {
+          "type": "integer",
+          "description": "Total number of times the card was forgotten."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when card was created (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when card was last updated (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "deckId",
+        "front",
+        "back",
+        "hint",
+        "tags",
+        "frontMediaUri",
+        "frontMediaType",
+        "frontMediaName",
+        "backMediaUri",
+        "backMediaType",
+        "backMediaName",
+        "repetitions",
+        "intervalDays",
+        "easeFactor",
+        "stability",
+        "difficulty",
+        "leitnerBox",
+        "dueAtMillis",
+        "lastReviewedMillis",
+        "lapses",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "StudyLog": {
+      "title": "StudyLog",
+      "description": "Daily review statistics for streak and progress tracking.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID."
+        },
+        "dateKey": {
+          "type": "string",
+          "description": "ISO date key (YYYY-MM-DD)."
+        },
+        "reviewsCount": {
+          "type": "integer",
+          "description": "Total reviews completed on this date."
+        },
+        "correctCount": {
+          "type": "integer",
+          "description": "Number of remembered (Hard/Good/Easy) reviews on this date."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when log was created (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when log was updated (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "dateKey",
+        "reviewsCount",
+        "correctCount",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/decks/{deckId}": {
+      "schema": { "$ref": "#/entities/Deck" },
+      "description": "User-owned flashcard decks."
+    },
+    "/users/{userId}/cards/{cardId}": {
+      "schema": { "$ref": "#/entities/Flashcard" },
+      "description": "User-owned flashcards linked to a parent deck via deckId."
+    },
+    "/users/{userId}/studyLogs/{logId}": {
+      "schema": { "$ref": "#/entities/StudyLog" },
+      "description": "Daily spaced-repetition review counts per user."
+    }
+  }
+}
